@@ -5,7 +5,6 @@ int Example_asm(int Input);
 
 
 void asm_math(float* p1, float* p2, int length);
-void asm_math_17(float* p1, float* p2, int length);
 void c_math(float* p1, float* p2, int length);
 void example(float* p1, float* p2, int length);
 void FIR_C(int* Input, float* Output);
@@ -57,10 +56,9 @@ int main()
 	float final[5];
 	
 	printf("length: %d\n", len_output);
-	//asm_math_17(Output, final, len_output);
 	
 	//c_math(Output, final, len_output);
-	cmsis_math(Output, final, len_output);
+	asm_math(Output, final, len_output);
 	
 	for(i = 0 ; i < 5 ; i++){
 		printf("%f ", final[i]);

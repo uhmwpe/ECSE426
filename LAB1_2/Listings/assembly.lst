@@ -37,8 +37,8 @@ ARM Macro Assembler    Page 1
                                                             lue
    28 00000012 EE70 0AE0       VSUB.F32         S1, S1, S1  ; Initialize max_va
                                                             lue
-   29 00000016 EEB0 1A00       VMOV.F32         S2, #0x40000000 ; Initialize mi
-                                                            n_value
+   29 00000016 EC90 1A01       VLDM.F32         R0, {S2}    ; Initialize min_va
+                                                            lue
    30 0000001A EE72 2AE2       VSUB.F32         S5, S5, S5  ; Initialize float 
                                                             loop counter ; todo
                                                              fix this (fix1)
@@ -86,17 +86,16 @@ ARM Macro Assembler    Page 2
    61 0000005C EE80 0A22       VDIV.F32         S0, S0, S5  ;   ; todo fix this
                                                              (fix1)
    62 00000060 EEB1 0AC0       VSQRT.F32        S0, S0      ;
-   63 00000064         
-   64 00000064 ED81 0A00       VSTR.F32         S0, [R1, #0]
-   65 00000068 EDC1 0A01       VSTR.F32         S1, [R1, #4]
-   66 0000006C ED81 1A02       VSTR.F32         S2, [R1, #8]
-   67 00000070 60CE            STR              R6, [R1, #12]
-   68 00000072 610F            STR              R7, [R1, #16]
-   69 00000074         
-   70 00000074 E8BD 40E0       POP              {R5, R6, R7, LR} ;
-   71 00000078 4770            BX               LR          ;
-   72 0000007A                 ENDP
-   73 0000007A                 END
+   63 00000064 EDC1 0A01       VSTR.F32         S1, [R1, #4]
+   64 00000068 ED81 1A00       VSTR.F32         S2, [R1]
+   65 0000006C 608E            STR              R6, [R1, #8]
+   66 0000006E 60CF            STR              R7, [R1, #12]
+   67 00000070 ED81 0A04       VSTR.F32         S0, [R1, #16]
+   68 00000074         
+   69 00000074 E8BD 40E0       POP              {R5, R6, R7, LR} ;
+   70 00000078 4770            BX               LR          ;
+   71 0000007A                 ENDP
+   72 0000007A                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\assembly.d -o.\objects\assembly.o -IP:\ECSE426\LAB1_2
 \RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include -IC:\Keil_v5\ARM
