@@ -12,90 +12,95 @@ ARM Macro Assembler    Page 1
     6 00000000         ;   R1 : pointer to output array
     7 00000000         ;   R2 : length of input array
     8 00000000         ; output:
-    9 00000000         ;   float32_t[5] = [RMS_value, max_value, min_value, max
-                       _index, min_index]
+    9 00000000         ; float32_t[5] = [min, max, index_min, index_max, rms]
    10 00000000         
-   11 00000000         ; WHAT WE NEED TO FIGURE OUT HOW TO DO
-   12 00000000         ; load values from pointer
-   13 00000000         ; compare less than and greater than (CMP)
-   14 00000000         ; set value at index from a pointer
-   15 00000000         ; multiply numbers
-   16 00000000         ; divide numbers
-   17 00000000         ; square root
-   18 00000000         
-   19 00000000         asm_math
+   11 00000000         
+   12 00000000         
+   13 00000000         asm_math
                                PROC
-   20 00000000                 EXPORT           asm_math
-   21 00000000         
-   22 00000000 B5E0            PUSH             {R5, R6, R7, LR} ;
-   23 00000002 F04F 0500       LDR              R5, = 0     ; R5 = loop counter
+   14 00000000                 EXPORT           asm_math
+   15 00000000         
+   16 00000000 B568            PUSH             {R3, R5, R6, LR} ;
+   17 00000002 F04F 0300       LDR              R3, = 0     ; R5 = loop counter
                                                             
-   24 00000006 F04F 0600       LDR              R6, = 0     ; R6 = max_index
-   25 0000000A F04F 0700       LDR              R7, = 0     ; R7 = min_index
-   26 0000000E         
-   27 0000000E EE30 0A40       VSUB.F32         S0, S0, S0  ; Initialize RMS_va
-                                                            lue
-   28 00000012 EE70 0AE0       VSUB.F32         S1, S1, S1  ; Initialize max_va
-                                                            lue
-   29 00000016 EC90 1A01       VLDM.F32         R0, {S2}    ; Initialize min_va
-                                                            lue
-   30 0000001A EE72 2AE2       VSUB.F32         S5, S5, S5  ; Initialize float 
-                                                            loop counter ; todo
-                                                             fix this (fix1)
-   31 0000001E EEB7 3A00       VMOV.F32         S6, #0x3f800000 ; todo fix this
-                                                             (fix1)
-   32 00000022         loop
-   33 00000022 42AA            CMP              R2, R5      ;
-   34 00000024 D01A            BEQ              exit
-   35 00000026         
-   36 00000026 EC90 2A01       VLDM.F32         R0, {S4}    ; Load next element
-                                                             ; todo fix this (f
-                                                            ix2)
-   37 0000002A         
-   38 0000002A         ; update RMS_value
-   39 0000002A EEA2 0A02       VFMA.F32         S0, S4, S4  ; Square current el
-                                                            em, add to total
-   40 0000002E         
-   41 0000002E         ; check max_value
-   42 0000002E EEB4 2A60       VCMP.F32         S4, S1      ;
-   43 00000032 EEF1 FA10       VMRS             APSR_nzcv, FPSCR ;
-   44 00000036 BFC4 462E       MOVGT            R6, R5      ;
-   45 0000003A EEF0 0A42       VMOVGT.F32       S1, S4      ;
-   46 0000003E         
-   47 0000003E         ; check min_value
+   18 00000006 F04F 0500       LDR              R5, = 0     ; R6 = max_index
+   19 0000000A F04F 0600       LDR              R6, = 0     ; R7 = min_index
+   20 0000000E         
+   21 0000000E EE30 0A40       VSUB.F32         S0, S0, S0  ; S0 = RMS = 0
+   22 00000012 EC90 1A01       VLDM.F32         R0, {S2}    ; max_value = R0
+   23 00000016 ECD0 0A01       VLDM.F32         R0, {S1}    ; Initialize =  R0
+   24 0000001A EE72 2AE2       VSUB.F32         S5, S5, S5  ; COUNTER = 0 
+   25 0000001E EEB7 3A00       VMOV.F32         S6, #0x3f800000 ; 
+   26 00000022         loop                                 ;LOOP UNTIL INDEX C
+                                                            OUNTER = LENGTH OF 
+                                                            INPUT
+   27 00000022 429A            CMP              R2, R3      ; 
+   28 00000024 D01A            BEQ              exit        ; STOP WHEN COUNTER
+                                                             = LENGTH
+   29 00000026         
+   30 00000026 EC90 2A01       VLDM.F32         R0, {S4}    ; UPDATE S4 WITH CU
+                                                            RR_VAL
+   31 0000002A EEA2 0A02       VFMA.F32         S0, S4, S4  ; UPDATE RSM WITH C
+                                                            URR_VAL^2
+   32 0000002E         
+   33 0000002E         
+   34 0000002E         
+   35 0000002E         ;=======MAX=======
+   36 0000002E EEB4 2A41       VCMP.F32         S4, S2      ;     ; COMPARE MAX
+                                                            _VAL & CURR_VAL
+   37 00000032 EEF1 FA10       VMRS             APSR_nzcv, FPSCR ;
+   38 00000036 BFC4 461D       MOVGT            R5, R3      ; UPDATE MAX_INDEX
+   39 0000003A EEB0 1A42       VMOVGT.F32       S2, S4      ;     ; UPDATE MAX_
+                                                            VAL
+   40 0000003E         
+   41 0000003E         ;=======MIN=======
+   42 0000003E EEB4 2A60       VCMP.F32         S4, S1      ; COMPARE MIN_VAL &
+                                                             CURR_VAL
+   43 00000042 EEF1 FA10       VMRS             APSR_nzcv, FPSCR ;
+   44 00000046 BFBC 461E       MOVLT            R6, R3      ;     ; UPDATE MIN_
+                                                            INDEX
+   45 0000004A EEF0 0A42       VMOVLT.F32       S1, S4      ;     ; UPDATE MIN_
+                                                            VAL
+   46 0000004E         
+   47 0000004E         ; increment index and pointer
 
 
 
 ARM Macro Assembler    Page 2 
 
 
-   48 0000003E EEB4 2A41       VCMP.F32         S4, S2      ;
-   49 00000042 EEF1 FA10       VMRS             APSR_nzcv, FPSCR ;
-   50 00000046 BFBC 462F       MOVLT            R7, R5      ;
-   51 0000004A EEB0 1A42       VMOVLT.F32       S2, S4      ;
-   52 0000004E         
-   53 0000004E         ; increment index and pointer
-   54 0000004E F100 0004       ADD              R0, R0, #4
-   55 00000052 F105 0501       ADD              R5, R5, #1
-   56 00000056 EE72 2A83       VADD.F32         S5, S5, S6  ; todo fix this (fi
-                                                            x1)
-   57 0000005A         
-   58 0000005A E7E2            B                loop
-   59 0000005C         exit
-   60 0000005C         
-   61 0000005C EE80 0A22       VDIV.F32         S0, S0, S5  ;   ; todo fix this
-                                                             (fix1)
-   62 00000060 EEB1 0AC0       VSQRT.F32        S0, S0      ;
-   63 00000064 EDC1 0A01       VSTR.F32         S1, [R1, #4]
-   64 00000068 ED81 1A00       VSTR.F32         S2, [R1]
-   65 0000006C 608E            STR              R6, [R1, #8]
-   66 0000006E 60CF            STR              R7, [R1, #12]
-   67 00000070 ED81 0A04       VSTR.F32         S0, [R1, #16]
-   68 00000074         
-   69 00000074 E8BD 40E0       POP              {R5, R6, R7, LR} ;
-   70 00000078 4770            BX               LR          ;
-   71 0000007A                 ENDP
-   72 0000007A                 END
+   48 0000004E F100 0004       ADD              R0, R0, #4
+   49 00000052 F103 0301       ADD              R3, R3, #1
+   50 00000056 EE72 2A83       VADD.F32         S5, S5, S6  ; INCREMENT S5 COUN
+                                                            TER
+   51 0000005A         
+   52 0000005A E7E2            B                loop
+   53 0000005C         exit
+   54 0000005C         
+   55 0000005C EE80 0A22       VDIV.F32         S0, S0, S5  ;   ; GET RMS VALUE
+                                                             --> RMS = RMS / LE
+                                                            NGTH
+   56 00000060 EEB1 0AC0       VSQRT.F32        S0, S0      ;     ; GET FINAL R
+                                                            MS VALUE --> RMS = 
+                                                            sqrt(RMS)
+   57 00000064 EDC1 0A00       VSTR.F32         S1, [R1]    ; STORE MIN VALUE I
+                                                            N OUTPUT VECTOR
+   58 00000068 ED81 1A01       VSTR.F32         S2, [R1, #4] ; STORE MAX VALUE 
+                                                            IN OUTPUT VECTOR
+   59 0000006C 608D            STR              R5, [R1, #8] ; STORE MIN_IDX VA
+                                                            LUE IN OUTPUT VECTO
+                                                            R
+   60 0000006E 60CE            STR              R6, [R1, #12] ; STORE MAX_IDX V
+                                                            ALUE IN OUTPUT VECT
+                                                            OR
+   61 00000070 ED81 0A04       VSTR.F32         S0, [R1, #16] ; STORE RMS VALUE
+                                                             IN OUTPUT VECTOR
+   62 00000074         
+   63 00000074 E8BD 4068       POP              {R3, R5, R6, LR} ; 
+   64 00000078 4770            BX               LR          ;       ; RETURN TO
+                                                             BRANCH ADDRESS
+   65 0000007A                 ENDP
+   66 0000007A                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\assembly.d -o.\objects\assembly.o -IP:\ECSE426\LAB1_2
 \RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include -IC:\Keil_v5\ARM
@@ -113,25 +118,25 @@ asm_math 00000000
 
 Symbol: asm_math
    Definitions
-      At line 19 in file Assembly.s
+      At line 13 in file Assembly.s
    Uses
-      At line 20 in file Assembly.s
+      At line 14 in file Assembly.s
 Comment: asm_math used once
 exit 0000005C
 
 Symbol: exit
    Definitions
-      At line 59 in file Assembly.s
+      At line 53 in file Assembly.s
    Uses
-      At line 34 in file Assembly.s
+      At line 28 in file Assembly.s
 Comment: exit used once
 loop 00000022
 
 Symbol: loop
    Definitions
-      At line 32 in file Assembly.s
+      At line 26 in file Assembly.s
    Uses
-      At line 58 in file Assembly.s
+      At line 52 in file Assembly.s
 Comment: loop used once
 text 00000000
 

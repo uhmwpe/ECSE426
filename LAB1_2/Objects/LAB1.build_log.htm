@@ -26,11 +26,18 @@ Project File Date:  01/31/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
+compiling main.c...
+main.c(38): warning:  #177-D: variable "Input" was declared but never referenced
+        int Input = 10;
+main.c: 1 warning, 0 errors
 assembling Assembly.s...
+compiling fput_debug.c...
+assembling startup_stm32f407xx.s...
+compiling system_stm32f4xx.c...
 linking...
 Program Size: Code=12568 RO-data=676 RW-data=84 ZI-data=1884  
-".\Objects\LAB1.axf" - 0 Error(s), 0 Warning(s).
+".\Objects\LAB1.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
