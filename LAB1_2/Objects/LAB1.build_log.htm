@@ -26,18 +26,11 @@ Project File Date:  01/31/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.05 update 2 (build 169)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(38): warning:  #177-D: variable "Input" was declared but never referenced
-        int Input = 10;
-main.c: 1 warning, 0 errors
+Build target 'Target 1'
 assembling Assembly.s...
-compiling fput_debug.c...
-assembling startup_stm32f407xx.s...
-compiling system_stm32f4xx.c...
 linking...
-Program Size: Code=12568 RO-data=676 RW-data=84 ZI-data=1884  
-".\Objects\LAB1.axf" - 0 Error(s), 1 Warning(s).
+Program Size: Code=12500 RO-data=636 RW-data=844 ZI-data=1884  
+".\Objects\LAB1.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -64,14 +57,14 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.0.0
 
    * Component: ARM::CMSIS:DSP:1.4.6
-      Library file:  CMSIS\Lib\ARM\arm_cortexM4lf_math.lib
       Include file:  CMSIS\Include\arm_math.h
+      Library file:  CMSIS\Lib\ARM\arm_cortexM4lf_math.lib
 
    * Component: Keil::Device:Startup:2.4.2
-      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
       Source file:   MDK\Device\Source\ARM\STM32F40xxx_41xxx_OPT.s
       Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
+      Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f407xx.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
 </pre>
 </body>
