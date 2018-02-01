@@ -35,7 +35,7 @@ int main()
 	int Input = 10;
 	printf("Start FIR\n");
 	int len_output = list_len - coeff_len;
-	int list[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	int list[10] = {100, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	float Output[len_output];
 	
 	FIR_C(list, Output);
@@ -51,6 +51,8 @@ int main()
 	printf("Start ARM\n");
 	
 	float final[5];
+	
+	printf("length: %d\n", len_output);
 	asm_math(Output, final, len_output);
 	for(i = 0 ; i < 5 ; i++){
 		printf("%f ", final[i]);

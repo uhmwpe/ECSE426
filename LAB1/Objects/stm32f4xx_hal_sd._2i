@@ -1,0 +1,8 @@
+-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork 
+-I P:\ECSE426\LAB1\RTE
+-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include
+-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Inc
+-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER --C99
+-o .\objects\stm32f4xx_hal_sd.o --omf_browse .\objects\stm32f4xx_hal_sd.crf --depend .\objects\stm32f4xx_hal_sd.d --feedback ".\Objects\LAB1.fed" "C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sd.c"
