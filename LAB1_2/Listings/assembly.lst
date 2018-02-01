@@ -35,7 +35,7 @@ ARM Macro Assembler    Page 1
                                                             OUNTER = LENGTH OF 
                                                             INPUT
    27 00000022 429A            CMP              R2, R3      ; 
-   28 00000024 D020            BEQ              exit        ; STOP WHEN COUNTER
+   28 00000024 D01E            BEQ              exit        ; STOP WHEN COUNTER
                                                              = LENGTH
    29 00000026         
    30 00000026 EC90 2A01       VLDM.F32         R0, {S4}    ; UPDATE S4 WITH CU
@@ -58,54 +58,52 @@ ARM Macro Assembler    Page 1
    42 00000042 EEB4 2A60       VCMP.F32         S4, S1      ; COMPARE MIN_VAL &
                                                              CURR_VAL
    43 00000046 EEF1 FA10       VMRS             APSR_nzcv, FPSCR ;
-   44 0000004A BFB8 461E       MOVLT            R6, R3      ;     ; UPDATE MIN_
+   44 0000004A BFBE 461E       MOVLT            R6, R3      ;     ; UPDATE MIN_
                                                             INDEX
-   45 0000004E BFC8 EEF0 
-              3A62             VMOVGT.F32       S7, S5      ;     ; UPDATE MAX_
+   45 0000004E EEF0 3A62       VMOVLT.F32       S7, S5      ;     ; UPDATE MAX_
                                                             VAL
+   46 00000052 EEF0 0A42       VMOVLT.F32       S1, S4      ;     ; UPDATE MIN_
 
 
 
 ARM Macro Assembler    Page 2 
 
 
-   46 00000054 BFB8 EEF0 
-              0A42             VMOVLT.F32       S1, S4      ;     ; UPDATE MIN_
                                                             VAL
-   47 0000005A         
-   48 0000005A         ; ======ITERATE THROUGH THE LOOP ======
-   49 0000005A F100 0004       ADD              R0, R0, #4
-   50 0000005E F103 0301       ADD              R3, R3, #1
-   51 00000062 EE72 2A83       VADD.F32         S5, S5, S6  ; INCREMENT S5 COUN
+   47 00000056         
+   48 00000056         ; ======ITERATE THROUGH THE LOOP ======
+   49 00000056 F100 0004       ADD              R0, R0, #4
+   50 0000005A F103 0301       ADD              R3, R3, #1
+   51 0000005E EE72 2A83       VADD.F32         S5, S5, S6  ; INCREMENT S5 COUN
                                                             TER
-   52 00000066         
-   53 00000066 E7DC            B                loop
-   54 00000068         exit
-   55 00000068         
-   56 00000068 EE80 0A22       VDIV.F32         S0, S0, S5  ;   ; GET RMS VALUE
+   52 00000062         
+   53 00000062 E7DE            B                loop
+   54 00000064         exit
+   55 00000064         
+   56 00000064 EE80 0A22       VDIV.F32         S0, S0, S5  ;   ; GET RMS VALUE
                                                              --> RMS = RMS / LE
                                                             NGTH
-   57 0000006C EEB1 0AC0       VSQRT.F32        S0, S0      ;     ; GET FINAL R
+   57 00000068 EEB1 0AC0       VSQRT.F32        S0, S0      ;     ; GET FINAL R
                                                             MS VALUE --> RMS = 
                                                             sqrt(RMS)
-   58 00000070 EDC1 0A00       VSTR.F32         S1, [R1]    ; STORE MIN VALUE I
+   58 0000006C EDC1 0A00       VSTR.F32         S1, [R1]    ; STORE MIN VALUE I
                                                             N OUTPUT VECTOR
-   59 00000074 ED81 1A01       VSTR.F32         S2, [R1, #4] ; STORE MAX VALUE 
+   59 00000070 ED81 1A01       VSTR.F32         S2, [R1, #4] ; STORE MAX VALUE 
                                                             IN OUTPUT VECTOR
-   60 00000078 EDC1 3A02       VSTR.F32         S7, [R1, #8] ; STORE MIN_IDX VA
+   60 00000074 EDC1 3A02       VSTR.F32         S7, [R1, #8] ; STORE MIN_IDX VA
                                                             LUE IN OUTPUT VECTO
                                                             R
-   61 0000007C ED81 4A03       VSTR.F32         S8, [R1, #12] ; STORE MAX_IDX V
+   61 00000078 ED81 4A03       VSTR.F32         S8, [R1, #12] ; STORE MAX_IDX V
                                                             ALUE IN OUTPUT VECT
                                                             OR
-   62 00000080 ED81 0A04       VSTR.F32         S0, [R1, #16] ; STORE RMS VALUE
+   62 0000007C ED81 0A04       VSTR.F32         S0, [R1, #16] ; STORE RMS VALUE
                                                              IN OUTPUT VECTOR
-   63 00000084         
-   64 00000084 E8BD 4068       POP              {R3, R5, R6, LR} ; 
-   65 00000088 4770            BX               LR          ;       ; RETURN TO
+   63 00000080         
+   64 00000080 E8BD 4068       POP              {R3, R5, R6, LR} ; 
+   65 00000084 4770            BX               LR          ;       ; RETURN TO
                                                              BRANCH ADDRESS
-   66 0000008A                 ENDP
-   67 0000008A                 END
+   66 00000086                 ENDP
+   67 00000086                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\assembly.d -o.\objects\assembly.o -IP:\ECSE426\LAB1_2
 \RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include -IC:\Keil_v5\ARM
@@ -127,7 +125,7 @@ Symbol: asm_math
    Uses
       At line 14 in file Assembly.s
 Comment: asm_math used once
-exit 00000068
+exit 00000064
 
 Symbol: exit
    Definitions
