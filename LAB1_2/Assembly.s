@@ -8,7 +8,13 @@
 	; output: 
 	; float32_t[5] = [min, max, index_min, index_max, rms]
 
-	
+    ; Brief of the function
+    ; Iterates through the Output array of the FIR_C function and finds:
+    ; Min value
+    ; Max value
+    ; min value index
+    ; max value index
+    ; array rms value
 
 asm_math PROC
 	EXPORT asm_math
@@ -22,8 +28,10 @@ asm_math PROC
 	VLDM.F32			R0, {S2}				; max_value = R0
 	VLDM.F32			R0, {S1}				; Initialize =  R0
 	VSUB.F32      S5, S5, S5      ; COUNTER = 0 
-	VMOV.F32			S6, #0x3f800000	; 
-loop ;LOOP UNTIL INDEX COUNTER = LENGTH OF INPUT
+    VMOV.F32			S6, #0x3f800000	        ;Load S6 with 1.0 floating point
+
+;======LOOP UNTIL INDEX COUNTER = LENGTH OF INPUT==========
+loop
 	CMP     			R2, R3; 
 	BEQ     			exit						; STOP WHEN COUNTER = LENGTH
 
@@ -33,14 +41,14 @@ loop ;LOOP UNTIL INDEX COUNTER = LENGTH OF INPUT
 
 ;=======MAX=======
 	VCMP.F32     	S4, S2;					; COMPARE MAX_VAL & CURR_VAL
-	VMRS     		 	APSR_nzcv, FPSCR;
+    VMRS     		 	APSR_nzcv, FPSCR    ; TRANSFER COMPARISON RESULT FLAG FROM FLOATING POINT TO INT
 	MOVGT   		 	R5, R3					;	UPDATE MAX_INDEX
 	VMOVGT.F32   	S8, S5;					; UPDATE MAX_VAL
 	VMOVGT.F32   	S2, S4;					; UPDATE MAX_VAL
 
 ;=======MIN=======
 	VCMP.F32     	S4, S1					; COMPARE MIN_VAL & CURR_VAL
-	VMRS					APSR_nzcv, FPSCR;
+	VMRS					APSR_nzcv, FPSCR; TRANSFER COMPARISON RESULT FLAG FROM FLOATING POINT TO INT
 	MOVLT    			R6, R3;					;	UPDATE MIN_INDEX
 	VMOVLT.F32   	S7, S5;					; UPDATE MAX_VAL
 	VMOVLT.F32		S1, S4;					; UPDATE MIN_VAL
@@ -52,7 +60,8 @@ loop ;LOOP UNTIL INDEX COUNTER = LENGTH OF INPUT
 
 	B							loop
 exit
-	
+
+; ======UPDATE OUTPUT ARRAY VALUES ====== 
 	VDIV.F32  		S0, S0, S5;			; GET RMS VALUE --> RMS = RMS / LENGTH
 	VSQRT.F32 		S0, S0;					; GET FINAL RMS VALUE --> RMS = sqrt(RMS)
 	VSTR.F32			S1, [R1]				; STORE MIN VALUE IN OUTPUT VECTOR
@@ -61,7 +70,7 @@ exit
 	VSTR.F32			S8, [R1, #12]		; STORE MAX_IDX VALUE IN OUTPUT VECTOR
 	VSTR.F32			S0, [R1, #16]		; STORE RMS VALUE IN OUTPUT VECTOR
 
-	POP    				{R3, R5, R6, LR}; 
-	BX						LR;							; RETURN TO BRANCH ADDRESS
+	POP    				{R3, R5, R6, LR};
+	BX						LR;							; RETURN TO BRANCH ADDRESS (to the C code)
 	ENDP
 	END
