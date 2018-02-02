@@ -1,3 +1,7 @@
+; Group 17
+; Tiffany Wang 260684152
+; Isaac Chan 260624096
+
 	AREA text, CODE, READONLY
 		
 	; function asm_math

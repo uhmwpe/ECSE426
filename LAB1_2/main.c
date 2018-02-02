@@ -1,3 +1,8 @@
+// Group 17 
+// Tiffany Wang 260684152
+// Isaac Chan 260624096
+
+
 #include <stdio.h>
 //#include "arm_math.h"
 #include <math.h>
