@@ -1,0 +1,180 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Group 17
+    2 00000000         ; Tiffany Wang 260684152
+    3 00000000         ; Isaac Chan 260624096
+    4 00000000         
+    5 00000000                 AREA             text, CODE, READONLY
+    6 00000000         
+    7 00000000         ; function asm_math
+    8 00000000         ; inputs:
+    9 00000000         ;   R0 : pointer to input array
+   10 00000000         ;   R1 : pointer to output array
+   11 00000000         ;   R2 : length of input array
+   12 00000000         ; output: 
+   13 00000000         ; float32_t[5] = [min, max, index_min, index_max, rms]
+   14 00000000         
+   15 00000000         ; Brief of the function
+   16 00000000         ; Iterates through the Output array of the FIR_C functio
+                       n and finds:
+   17 00000000         ; Min value
+   18 00000000         ; Max value
+   19 00000000         ; min value index
+   20 00000000         ; max value index
+   21 00000000         ; array rms value
+   22 00000000         
+   23 00000000         asm_math
+                               PROC
+   24 00000000                 EXPORT           asm_math
+   25 00000000         
+   26 00000000 B568            PUSH             {R3, R5, R6, LR} ;
+   27 00000002 F04F 0300       LDR              R3, = 0     ; R5 = loop counter
+                                                            
+   28 00000006 F04F 0500       LDR              R5, = 0     ; R6 = max_index
+   29 0000000A F04F 0600       LDR              R6, = 0     ; R7 = min_index
+   30 0000000E         
+   31 0000000E EE30 0A40       VSUB.F32         S0, S0, S0  ; S0 = RMS = 0
+   32 00000012 EC90 1A01       VLDM.F32         R0, {S2}    ; max_value = R0
+   33 00000016 ECD0 0A01       VLDM.F32         R0, {S1}    ; Initialize =  R0
+   34 0000001A EE72 2AE2       VSUB.F32         S5, S5, S5  ; COUNTER = 0 
+   35 0000001E EEB7 3A00       VMOV.F32         S6, #0x3f800000 ;Load S6 with 1
+                                                            .0 floating point
+   36 00000022         
+   37 00000022         ;======LOOP UNTIL INDEX COUNTER = LENGTH OF INPUT=======
+                       ===
+   38 00000022         loop
+   39 00000022 429A            CMP              R2, R3      ; 
+   40 00000024 D01E            BEQ              exit        ; STOP WHEN COUNTER
+                                                             = LENGTH
+   41 00000026         
+   42 00000026 EC90 2A01       VLDM.F32         R0, {S4}    ; UPDATE S4 WITH CU
+                                                            RR_VAL
+   43 0000002A EEA2 0A02       VFMA.F32         S0, S4, S4  ; UPDATE RSM WITH C
+                                                            URR_VAL^2
+   44 0000002E         
+   45 0000002E         
+   46 0000002E         ;=======MAX=======
+   47 0000002E EEB4 2A41       VCMP.F32         S4, S2      ;     ; COMPARE MAX
+                                                            _VAL & CURR_VAL
+   48 00000032 EEF1 FA10       VMRS             APSR_nzcv, FPSCR ; TRANSFER COM
+                                                            PARISON RESULT FLAG
+                                                             FROM FLOATING POIN
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                            T TO INT
+   49 00000036 BFC2 461D       MOVGT            R5, R3      ; UPDATE MAX_INDEX
+   50 0000003A EEB0 4A62       VMOVGT.F32       S8, S5      ;     ; UPDATE MAX_
+                                                            VAL
+   51 0000003E EEB0 1A42       VMOVGT.F32       S2, S4      ;     ; UPDATE MAX_
+                                                            VAL
+   52 00000042         
+   53 00000042         ;=======MIN=======
+   54 00000042 EEB4 2A60       VCMP.F32         S4, S1      ; COMPARE MIN_VAL &
+                                                             CURR_VAL
+   55 00000046 EEF1 FA10       VMRS             APSR_nzcv, FPSCR ; TRANSFER COM
+                                                            PARISON RESULT FLAG
+                                                             FROM FLOATING POIN
+                                                            T TO INT
+   56 0000004A BFBE 461E       MOVLT            R6, R3      ;     ; UPDATE MIN_
+                                                            INDEX
+   57 0000004E EEF0 3A62       VMOVLT.F32       S7, S5      ;     ; UPDATE MAX_
+                                                            VAL
+   58 00000052 EEF0 0A42       VMOVLT.F32       S1, S4      ;     ; UPDATE MIN_
+                                                            VAL
+   59 00000056         
+   60 00000056         ; ======ITERATE THROUGH THE LOOP ======
+   61 00000056 F100 0004       ADD              R0, R0, #4
+   62 0000005A F103 0301       ADD              R3, R3, #1
+   63 0000005E EE72 2A83       VADD.F32         S5, S5, S6  ; INCREMENT S5 COUN
+                                                            TER
+   64 00000062         
+   65 00000062 E7DE            B                loop
+   66 00000064         exit
+   67 00000064         
+   68 00000064         ; ======UPDATE OUTPUT ARRAY VALUES ====== 
+   69 00000064 EE80 0A22       VDIV.F32         S0, S0, S5  ;   ; GET RMS VALUE
+                                                             --> RMS = RMS / LE
+                                                            NGTH
+   70 00000068 EEB1 0AC0       VSQRT.F32        S0, S0      ;     ; GET FINAL R
+                                                            MS VALUE --> RMS = 
+                                                            sqrt(RMS)
+   71 0000006C EDC1 0A00       VSTR.F32         S1, [R1]    ; STORE MIN VALUE I
+                                                            N OUTPUT VECTOR
+   72 00000070 ED81 1A01       VSTR.F32         S2, [R1, #4] ; STORE MAX VALUE 
+                                                            IN OUTPUT VECTOR
+   73 00000074 EDC1 3A02       VSTR.F32         S7, [R1, #8] ; STORE MIN_IDX VA
+                                                            LUE IN OUTPUT VECTO
+                                                            R
+   74 00000078 ED81 4A03       VSTR.F32         S8, [R1, #12] ; STORE MAX_IDX V
+                                                            ALUE IN OUTPUT VECT
+                                                            OR
+   75 0000007C ED81 0A04       VSTR.F32         S0, [R1, #16] ; STORE RMS VALUE
+                                                             IN OUTPUT VECTOR
+   76 00000080         
+   77 00000080 E8BD 4068       POP              {R3, R5, R6, LR} ;
+   78 00000084 4770            BX               LR          ;       ; RETURN TO
+                                                             BRANCH ADDRESS (to
+                                                             the C code)
+   79 00000086                 ENDP
+   80 00000086                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\assembly.d -o.\objects\assembly.o -IP:\ECSE426\LAB1_2
+\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include -IC:\Keil_v5\ARM
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IC:\K
+eil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Inc
+lude --predefine="__UVISION_VERSION SETA 515" --predefine="_RTE_ SETA 1" --pred
+efine="STM32F407xx SETA 1" --list=.\listings\assembly.lst Assembly.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+asm_math 00000000
+
+Symbol: asm_math
+   Definitions
+      At line 23 in file Assembly.s
+   Uses
+      At line 24 in file Assembly.s
+Comment: asm_math used once
+exit 00000064
+
+Symbol: exit
+   Definitions
+      At line 66 in file Assembly.s
+   Uses
+      At line 40 in file Assembly.s
+Comment: exit used once
+loop 00000022
+
+Symbol: loop
+   Definitions
+      At line 38 in file Assembly.s
+   Uses
+      At line 65 in file Assembly.s
+Comment: loop used once
+text 00000000
+
+Symbol: text
+   Definitions
+      At line 5 in file Assembly.s
+   Uses
+      None
+Comment: text unused
+4 symbols
+338 symbols in table
