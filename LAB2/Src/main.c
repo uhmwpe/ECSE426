@@ -40,10 +40,10 @@
 #include "stm32f4xx_hal.h"
 #include "adc.h"
 #include "gpio.h"
-//#include "arm_math.h"
+#include "arm_math.h"
 
-
-#define SAMPLINGCOUNTER 10
+ 
+#define SAMPLINGCOUNTER 10*/
 #define PROCESSINGCOUNTER 200
 #define DISPLAYINGCOUNTER 1
 #define ALARMCOUNTER 100
@@ -87,7 +87,10 @@ int coeff_len = 5;
 int x[5] = {0, 0, 0, 0, 0};
 
 int main(void)
-{	/*
+{	
+	
+	
+	/*
 	// initialize variables
 	float adc_value,temperature;
 
@@ -97,28 +100,24 @@ int main(void)
 	int digit_count=0;
 	int displaying_count=0;
 	int alarm_count=0;
-	// coefficient array for FIR filter
-	float coeff[]={0.1,0.1,0.1,0.1,0.1};
-	int filterArrayCounter=0;
-	float inputArray[15];
 	float filteredVoltage[15];
 	
   // Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  //HAL_Init();
+  HAL_Init();
 
 	/* Configure the system clock */
   //SystemClock_Config();
  
 	/*Initialize*/
 	
-	/*
+	
 	initialize_ADC();
 	initialize_GPIO_segments();
 	initialize_GPIO_digits();
 	initialize_GPIO_dp();	
 	initialize_GPIO_alarms();	
 	initialize_GPIO_button();
-	*/
+
 
 /* Infinite loop */
 

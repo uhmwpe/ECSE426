@@ -30,3 +30,7 @@ lab2 configuration/\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pw
 lab2 configuration/\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 lab2 configuration/\main.o: ../Inc/adc.h
 lab2 configuration/\main.o: ../Inc/gpio.h
+lab2 configuration/\main.o: ../Drivers/CMSIS/Include/arm_math.h
+lab2 configuration/\main.o: ../Drivers/CMSIS/Include/core_cm4.h
+lab2 configuration/\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+lab2 configuration/\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
