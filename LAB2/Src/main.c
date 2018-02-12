@@ -31,9 +31,16 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
+
+// Group 17 
+// Tiffany Wang 260684152
+// Isaac Chan 260624096
+
+
 #include "stm32f4xx_hal.h"
 #include "adc.h"
 #include "gpio.h"
+//#include "arm_math.h"
 
 
 #define SAMPLINGCOUNTER 10
@@ -58,15 +65,29 @@ float function_ADC(void);
 float tempConversion(float);
 void alarm_overheating(void);
 void led_display(float,int);
-int FIR_C(float* , float*, float*, int, int);
 void led_number(int);
 void led_unit(char);
 float celsius_to_farenheit (float);
 void initialize_GPIO_button(void);
+// Function header declaration
+void FIR_C(int input, float* output);
+void asm_math(float* p1, float* p2, int length);
+void c_math(float* p1, float* p2, int length);
+void cmsis_math(float* input, float* output, int len);
 
+
+// Global Variables
+//============================== TEST INPUT ARRAY - TO BE UPDATED BY TA ==============================
+int Input[100] = {12,19,34,50,63,83,74,86,99,101,103,117,114,103,117,94,105,85,82,67,67,46,41,31,14,-1,-6,-14,-28,-42,-46,-56,-69,-79,-90,-88,-87,-86,-86,-96,-82,-80,-67,-62,-62,-38,-41,-28,-10,3,12,19,34,50,63,83,74,86,99,101,103,117,114,103,117,94,105,85,82,67,67,46,41,31,14,-1,-6,-14,-28,-42,-46,-56,-69,-79,-90,-88,-87,-86,-86,-96,-82,-80,-67,-62,-62,-38,-41,-28,-10,3};
+
+//============================== TEST INPUT ARRAY - TO BE UPDATED BY TA ==============================
+int input_len = (int)( sizeof(Input) / sizeof(Input[0]) );
+float coeff[5] = {0.1,0.15,0.5,0.15,0.1};
+int coeff_len = 5;
+int x[5] = {0, 0, 0, 0, 0};
 
 int main(void)
-{
+{	/*
 	// initialize variables
 	float adc_value,temperature;
 
@@ -82,22 +103,26 @@ int main(void)
 	float inputArray[15];
 	float filteredVoltage[15];
 	
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+  // Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  //HAL_Init();
 
 	/* Configure the system clock */
-  SystemClock_Config();
+  //SystemClock_Config();
  
 	/*Initialize*/
+	
+	/*
 	initialize_ADC();
 	initialize_GPIO_segments();
 	initialize_GPIO_digits();
 	initialize_GPIO_dp();	
 	initialize_GPIO_alarms();	
 	initialize_GPIO_button();
-
+	*/
 
 /* Infinite loop */
+
+/*
  while (1)
   {
 		// read button input
@@ -172,42 +197,59 @@ int main(void)
 			}
 			}
 }
+} */
 }
 
-//converting celsius to farenheit
-float celsius_to_farenheit(float celsius){
-	
-	printf("result from %f celsius_to_farenheit is:%f",celsius,((celsius*9/5)+32));
-	return ((celsius*9/5)+32);
-}
+/**
+ * @brief  Find the min, max, min_idx, max_idx, rms of an array using CMSIS build-in functions
+ * @param  input address (pointer), output address (pointer), length of input
+ * @retval None
+ */
+/*
+void cmsis_math(float* input, float* output, int len){
+    uint32_t max_idx;
+    uint32_t min_idx;
+    arm_rms_f32(input, len, &output[4]);
+    arm_max_f32(input, len, &output[1], &max_idx);
+    arm_min_f32(input, len, &output[0], &min_idx);
+    output[3] = (float) max_idx;
+    output[2] = (float) min_idx;
+    return;
+}*/
 
 
 
-int FIR_C(float* inputArray, float* outputArray, float* coeff, int length, int order){
-	//for all sample in the inputArray
-	for(int n=0; n<length-order; n++){
-		//temp variable to store the accumulative sum of the filter
-		float sum = 0;
-		//iterate for the number of existing coefficients
-		for(int b=0; b<=order; b++){
-			//multiply the content of pointer coeff to content of point input array
-			sum += inputArray[n+b] * coeff[b];
-		}		
-		//store the result
-		outputArray[n] = sum;
-	}
-	return 0;
+/**
+ * @brief  FIR Filter takes in integer inputs serially and returns the filtered data (output)
+ * @param  integer input, output address (pointer to index in output array)
+ * @retval None
+ */
+void FIR_C(int input, float* output){
+    // Shift all x to the left
+    for(int i = 0 ; i < 4 ; i++){
+        x[i] = x[i + 1];
+    }
+    
+    //update x[4] with new input
+    x[4] = input;
+    
+    
+    //calculate output
+    *output = 0 ;
+    for(int i = 0 ; i < 5 ; i++){
+        *output = *output + x[i] * coeff[i];
+    }
 }
 
 
 // Conversion from voltage to celsius
-float tempConversion(float voltage){
+/*float tempConversion(float voltage){
 	float V_25 = 0.76;
 	float avg_slope = 2.5/1000;
 	return ((voltage-V_25)/avg_slope)+25;
-}
+}*/
 
-/** System Clock Configuration*/
+/** System Clock Configuration
 void SystemClock_Config(void)
 {
 
@@ -240,9 +282,9 @@ void SystemClock_Config(void)
 
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
-  /* SysTick_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
-}
+  // SysTick_IRQn interrupt configuration */
+  //HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+//}
 
 #ifdef USE_FULL_ASSERT
 
