@@ -69,7 +69,12 @@ SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+ const uint16_t sine_wave_array[32] = {2047, 1648, 1264, 910, 600,  345,   
+                    156, 39,  0,  39,  156,  345,  
+                    600, 910, 1264, 1648, 2048, 2447,  
+                    2831, 3185, 3495, 3750, 3939, 4056,  
+                    4095, 4056, 3939, 3750, 3495, 3185,  
+                    2831, 2447};  
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -80,7 +85,7 @@ static void MX_DAC_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_SPI1_Init(void);
 void MX_USB_HOST_Process(void);
-void ConfigureADC(void);
+//void ConfigureADC(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -115,7 +120,7 @@ int main(void)
 
   /* Configure the system clock */
   SystemClock_Config();
-	ConfigureADC();
+//	ConfigureADC();
 
   /* USER CODE BEGIN SysInit */
 
@@ -129,8 +134,12 @@ int main(void)
   MX_SPI1_Init();
   MX_USB_HOST_Init();
 	HAL_ADC_Start_IT(&hadc1);
+	
+	
   /* USER CODE BEGIN 2 */
-
+	// HAL_TIM_Base_Start(&htim6);  
+  HAL_DAC_Start(&hdac,DAC_CHANNEL_1);  
+	//HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)sine_wave_array, 32, DAC_ALIGN_12B_R);  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -289,6 +298,7 @@ static void MX_ADC1_Init(void)
 
 }
 
+/*
 void ConfigureADC()
 {
     GPIO_InitTypeDef gpioInit;
@@ -333,6 +343,7 @@ void ConfigureADC()
         //asm("bkpt 255");
     }
 }
+*/
 
 /* DAC init function */
 static void MX_DAC_Init(void)
