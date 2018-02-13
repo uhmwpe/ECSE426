@@ -1,0 +1,43 @@
+Dependencies for Project 'LAB1', Target 'Target 1': (DO NOT MODIFY !)
+F (.\main.c)(0x5A80BE0F)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588C3A14)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\arm_math.h)(0x5735E578)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cm4.h)(0x5735E8F8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588C3A14)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cminstr.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\cmsis_armcc.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cmfunc.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cmsimd.h)(0x5735E576)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x588C3A14)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x588C3A14)
+F (.\Assembly.s)(0x5A80BE0E)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 524" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list .\listings\assembly.lst --xref -o .\objects\assembly.o --depend .\objects\assembly.d)
+F (.\fput_debug.c)(0x5A80BE0F)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER-o .\objects\fput_debug.o --omf_browse .\objects\fput_debug.crf --depend .\objects\fput_debug.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588C3A14)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x5644DD48)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h)(0x5644DD48)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cm4.h)(0x5735E8F8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588C3A14)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cminstr.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\cmsis_armcc.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cmfunc.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cmsimd.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x5644DD46)
+F (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib)(0x5735E8F8)()
+F (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c)(0x5644DD4A)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER-o .\objects\stm32f4xx_hal_adc.o --omf_browse .\objects\stm32f4xx_hal_adc.crf --depend .\objects\stm32f4xx_hal_adc.d)
+F (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c)(0x5644DD4A)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER-o .\objects\stm32f4xx_hal_adc_ex.o --omf_browse .\objects\stm32f4xx_hal_adc_ex.crf --depend .\objects\stm32f4xx_hal_adc_ex.d)
+F (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c)(0x5644DD4A)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER-o .\objects\stm32f4xx_hal_cortex.o --omf_browse .\objects\stm32f4xx_hal_cortex.crf --depend .\objects\stm32f4xx_hal_cortex.d)
+F (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac.c)(0x5644DD4A)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER-o .\objects\stm32f4xx_hal_dac.o --omf_browse .\objects\stm32f4xx_hal_dac.crf --depend .\objects\stm32f4xx_hal_dac.d)
+F (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac_ex.c)(0x5644DD4A)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER-o .\objects\stm32f4xx_hal_dac_ex.o --omf_browse .\objects\stm32f4xx_hal_dac_ex.crf --depend .\objects\stm32f4xx_hal_dac_ex.d)
+F (RTE\Device\STM32F407VGTx\RTE_Device.h)(0x5A80BE0F)()
+F (RTE\Device\STM32F407VGTx\startup_stm32f407xx.s)(0x5A80BE0F)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 524" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list .\listings\startup_stm32f407xx.lst --xref -o .\objects\startup_stm32f407xx.o --depend .\objects\startup_stm32f407xx.d)
+F (RTE\Device\STM32F407VGTx\stm32f4xx_hal_conf.h)(0x5A80BE0F)()
+F (RTE\Device\STM32F407VGTx\system_stm32f4xx.c)(0x5A80BE0F)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I.\RTE\Device\STM32F407VGTx-I.\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DHSE_VALUE="8000000" -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_PRESENT="1" -DUSE_HAL_DRIVER-o .\objects\system_stm32f4xx.o --omf_browse .\objects\system_stm32f4xx.crf --depend .\objects\system_stm32f4xx.d)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x5644DD48)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h)(0x5644DD48)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cm4.h)(0x5735E8F8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588C3A14)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cminstr.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\cmsis_armcc.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cmfunc.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cmsimd.h)(0x5735E576)
+I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x5644DD46)
