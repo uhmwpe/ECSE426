@@ -9,6 +9,7 @@
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cmfunc.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include\core_cmsimd.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h
+<<<<<<< HEAD
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx_hal.h
 .\objects\fput_debug.o: .\RTE\Device\STM32F407VGTx\stm32f4xx_hal_conf.h
 .\objects\fput_debug.o: .\RTE\_Target_1\RTE_Components.h
@@ -31,3 +32,5 @@
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx_hal_flash_ramfunc.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx_hal_pwr.h
 .\objects\fput_debug.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx_hal_pwr_ex.h
+=======
+>>>>>>> 626a52863e2a159f864af38eb8f90fedf7bdcf46

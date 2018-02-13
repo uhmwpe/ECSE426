@@ -267,8 +267,13 @@
     <File>
       <GroupNumber>1</GroupNumber>
       <FileNumber>1</FileNumber>
+<<<<<<< HEAD:LAB2/LAB2.uvoptx
       <FileType>2</FileType>
       <tvExp>0</tvExp>
+=======
+      <FileType>1</FileType>
+      <tvExp>1</tvExp>
+>>>>>>> 626a52863e2a159f864af38eb8f90fedf7bdcf46:LAB2/LAB1.uvoptx
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\Assembly.s</PathWithFileName>

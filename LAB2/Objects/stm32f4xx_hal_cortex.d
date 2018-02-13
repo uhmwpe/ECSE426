@@ -1,4 +1,5 @@
 .\objects\stm32f4xx_hal_cortex.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c
+<<<<<<< HEAD
 .\objects\stm32f4xx_hal_cortex.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.h
 .\objects\stm32f4xx_hal_cortex.o: .\RTE\Device\STM32F407VGTx\stm32f4xx_hal_conf.h
 .\objects\stm32f4xx_hal_cortex.o: .\RTE\_Target_1\RTE_Components.h
@@ -31,3 +32,5 @@
 .\objects\stm32f4xx_hal_cortex.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx_hal_flash_ramfunc.h
 .\objects\stm32f4xx_hal_cortex.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx_hal_pwr.h
 .\objects\stm32f4xx_hal_cortex.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx_hal_pwr_ex.h
+=======
+>>>>>>> 626a52863e2a159f864af38eb8f90fedf7bdcf46

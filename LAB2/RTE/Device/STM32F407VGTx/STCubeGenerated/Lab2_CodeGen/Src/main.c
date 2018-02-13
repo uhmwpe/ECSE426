@@ -56,7 +56,10 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
+
 ADC_HandleTypeDef g_AdcHandle;
+
+GPIO_InitTypeDef GPIO_InitDef; 
 
 DAC_HandleTypeDef hdac;
 
@@ -113,7 +116,6 @@ int main(void)
   /* Configure the system clock */
   SystemClock_Config();
 	ConfigureADC();
-	GPIO_InitTypeDef GPIO_InitDef;
 
   /* USER CODE BEGIN SysInit */
 
@@ -126,7 +128,7 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI1_Init();
   MX_USB_HOST_Init();
-	HAL_ADC_Start_IT(&g_AdcHandle);
+	HAL_ADC_Start_IT(&hadc1);
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -134,7 +136,13 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
+	{
+		float val = 0;
+		HAL_ADC_Start(&hadc1);
+		if(HAL_ADC_PollForConversion(&hadc1, POLL_TIMEOUT) == HAL_OK)
+			val = HAL_ADC_GetValue(&hadc1);
+		HAL_ADC_Stop(&hadc1);
+  
 		
 		 /*if (HAL_ADC_PollForConversion(&g_AdcHandle, 1000000) == HAL_OK)
         {
@@ -225,7 +233,7 @@ void SystemClock_Config(void)
 /* ADC1 init function */
 static void MX_ADC1_Init(void)
 {
-
+	
   ADC_ChannelConfTypeDef sConfig;
 	__HAL_RCC_ADC1_CLK_ENABLE();
 
@@ -258,6 +266,26 @@ static void MX_ADC1_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
+	
+/* initialize ADC mode struct */
+	/*hadc1_mode.Mode = ADC_MODE_INDEPENDENT;														
+	hadc1_mode.DMAAccessMode = ADC_DMAACCESSMODE_DISABLED;
+	hadc1_mode.TwoSamplingDelay = ADC_TWOSAMPLINGDELAY_5CYCLES;
+	
+	*/
+	//ADC_CLK_EN;
+	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
+//	HAL_ADCEx_MultiModeConfigChannel(&hadc1, &example_ADC_Mode);	/* configure mode */
+
+
+	//ADC_CLK_EN; 									
+	
+	GPIO_InitDef.Pin = ADC_Pin; 	
+	GPIO_InitDef.Mode = GPIO_MODE_ANALOG;   			
+	GPIO_InitDef.Pull = GPIO_PULLDOWN;
+	GPIO_InitDef.Speed = GPIO_SPEED_FREQ_MEDIUM;
+	
+	HAL_GPIO_Init(ADC_GPIO_Port, &GPIO_InitDef);
 
 }
 

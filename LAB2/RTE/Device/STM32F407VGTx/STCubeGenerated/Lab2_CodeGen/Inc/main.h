@@ -123,6 +123,11 @@
 #define Audio_SDA_GPIO_Port GPIOB
 #define MEMS_INT2_Pin GPIO_PIN_1
 #define MEMS_INT2_GPIO_Port GPIOE
+#define ADC_CLK_EN __HAL_RCC_GPIOA_CLK_ENABLE()
+//#define sConfig ADC_CHANNEL_TEMPSENSOR
+#define ADC_GPIO_Port GPIOA
+#define ADC_Pin GPIO_PIN_5	// Pin A5 is connected to the ADC1 channel 5 input
+#define POLL_TIMEOUT 10000
 
 /* ########################## Assert Selection ############################## */
 /**
