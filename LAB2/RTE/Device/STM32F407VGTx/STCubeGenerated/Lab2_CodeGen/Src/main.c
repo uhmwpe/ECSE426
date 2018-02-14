@@ -56,15 +56,10 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
-
-ADC_HandleTypeDef g_AdcHandle;
-
+//ADC_HandleTypeDef g_AdcHandle;
 GPIO_InitTypeDef GPIO_InitDef; 
-
 DAC_HandleTypeDef hdac;
-
 I2C_HandleTypeDef hi2c1;
-
 SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
@@ -133,35 +128,38 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI1_Init();
   MX_USB_HOST_Init();
-	HAL_ADC_Start_IT(&hadc1);
+
 	
 	
   /* USER CODE BEGIN 2 */
-	// HAL_TIM_Base_Start(&htim6);  
+	float voltage[5] = {30000, 20000, 30000, 10000, 20000};
+	int counter = 0;
+	
   HAL_DAC_Start(&hdac,DAC_CHANNEL_1);  
-	//HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)sine_wave_array, 32, DAC_ALIGN_12B_R);  
+	//HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, voltage);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	float val = 0;
   while (1)
 	{
-		float val = 0;
-		HAL_ADC_Start(&hadc1);
+
+		//float voltage = 30000;
+		HAL_ADC_Start_IT(&hadc1);
+		HAL_DAC_SetValue(&hdac, DAC_CHANNEL_1, DAC_ALIGN_12B_R, voltage[(counter++)%5]);
+		/*HAL_ADC_Start(&hadc1);*/
 		if(HAL_ADC_PollForConversion(&hadc1, POLL_TIMEOUT) == HAL_OK)
 			val = HAL_ADC_GetValue(&hadc1);
-		HAL_ADC_Stop(&hadc1);
-  
-		
-		 /*if (HAL_ADC_PollForConversion(&g_AdcHandle, 1000000) == HAL_OK)
-        {
-						HAL_GPIO_WritePin(GPIOD, LD4_Pin, GPIO_PIN_RESET);
-						g_ADCValue = HAL_ADC_GetValue(&g_AdcHandle);
-            g_MeasurementNumber++;
-        }
+			if(val > 100){
+				HAL_GPIO_WritePin(GPIOD, LD3_Pin, GPIO_PIN_SET);
+			}
 			else{
-				HAL_GPIO_WritePin(GPIOD, LD4_Pin, GPIO_PIN_SET);
-			}*/
+				HAL_GPIO_WritePin(GPIOD, LD3_Pin, GPIO_PIN_RESET);
+			}
+				
+	
+  
 
   /* USER CODE END WHILE */
     //MX_USB_HOST_Process();
@@ -173,11 +171,12 @@ int main(void)
 		}
 		
 			
-		
+				HAL_ADC_Stop(&hadc1);
 
   /* USER CODE BEGIN 3 */
 
   }
+
   /* USER CODE END 3 */
 
 }
@@ -298,52 +297,7 @@ static void MX_ADC1_Init(void)
 
 }
 
-/*
-void ConfigureADC()
-{
-    GPIO_InitTypeDef gpioInit;
- 
-    __GPIOC_CLK_ENABLE();
-    __ADC1_CLK_ENABLE();
- 
-    gpioInit.Pin = GPIO_PIN_1;
-    gpioInit.Mode = GPIO_MODE_ANALOG;
-    gpioInit.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOC, &gpioInit);
- 
-    HAL_NVIC_SetPriority(ADC_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(ADC_IRQn);
- 
-    ADC_ChannelConfTypeDef adcChannel;
- 
-    g_AdcHandle.Instance = ADC1;
- 
-    g_AdcHandle.Init.ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV2;
-    g_AdcHandle.Init.Resolution = ADC_RESOLUTION_12B;
-    g_AdcHandle.Init.ScanConvMode = DISABLE;
-    g_AdcHandle.Init.ContinuousConvMode = ENABLE;
-    g_AdcHandle.Init.DiscontinuousConvMode = DISABLE;
-    g_AdcHandle.Init.NbrOfDiscConversion = 0;
-    g_AdcHandle.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-    g_AdcHandle.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T1_CC1;
-    g_AdcHandle.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-    g_AdcHandle.Init.NbrOfConversion = 1;
-    g_AdcHandle.Init.DMAContinuousRequests = ENABLE;
-    g_AdcHandle.Init.EOCSelection = DISABLE;
- 
-    HAL_ADC_Init(&g_AdcHandle);
- 
-    adcChannel.Channel = ADC_CHANNEL_11;
-    adcChannel.Rank = 1;
-    adcChannel.SamplingTime = ADC_SAMPLETIME_480CYCLES;
-    adcChannel.Offset = 0;
- 
-    if (HAL_ADC_ConfigChannel(&g_AdcHandle, &adcChannel) != HAL_OK)
-    {
-        //asm("bkpt 255");
-    }
-}
-*/
+
 
 /* DAC init function */
 static void MX_DAC_Init(void)
